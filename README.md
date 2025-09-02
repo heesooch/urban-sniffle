@@ -1,13 +1,10 @@
-A SQL project exploring coffee sales, customer behavior, and consumer preferences through data cleaning, aggregation, and multi-table analysis.
+# Data & Analytics Portfolio
 
-## Data & Schema
-- Tables: `coffeesales`, `baristacoffeesalestbl`, `list_coffee_shops_in_kota_bogor`, `top-rated-coffee`, `consumerpreference`
-- Joins: `coffeeID` ↔ `ID`, `shopID` ↔ `no`, `customer_id` ↔ `SUBSTRING(customer_id,6)`
-- Known issues handled: invalid time strings (e.g., `46:33:00`), potential duplicates, nulls
+A collection of projects showcasing SQL, Python, and data analysis skills.
 
-## How to Run
-Tested on MySQL 8.x.
-```sql
--- from mysql client
-SOURCE Coffee_SQL_Analysis.sql;
+## 📂 Projects
+- [Coffee Sales Analysis](./coffee_sql_analysis)  
+  SQL project analyzing customer behavior, product categories, and store performance.
 
+- [Nobel Prize Winners Analysis](./nobel_prize_analysis)  
+  Python project exploring Nobel Prize winners (1901–2023) with pandas and seaborn.
