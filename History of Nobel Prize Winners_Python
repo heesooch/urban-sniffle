@@ -1,1 +1,69 @@
+"""
+The Nobel Prize has been one of the most prestigious international awards since 1901, 
+honoring achievements in chemistry, literature, physics, physiology or medicine, 
+economics, and peace. Along with global recognition and substantial prize money, 
+recipients are awarded a gold medal featuring Alfred Nobel (1833–1896), who founded the prize.
+
+This project uses the Nobel Foundation dataset (1901–2023), made available through 
+the Nobel Prize API and stored as `nobel.csv` in the `data` folder. 
+
+The analysis explores key questions such as:
+- Which gender and country have received the most prizes?
+- How has the distribution of awards evolved over time?
+- What trends emerge across different prize categories?
+
+Additional visualizations and insights are encouraged to deepen understanding 
+of this historic dataset.
+
+![](Nobel_Prize.png)
+"""
+
+
+# Loading in required libraries
+import pandas as pd
+import seaborn as sns
+import numpy as np
+
+# Start coding here!
+nobel_df = pd.read_csv('data/nobel.csv') 
+pd.set_option('display.max_columns', 4)
+
+# Find the most commonly awarded gender & country
+top_gender = nobel_df['sex'].value_counts()
+top_gender = top_gender.index[0]
+top_country = nobel_df['birth_country'].value_counts()
+top_country = top_country.index[0]
+print("Most commonly awarded gender is", top_gender, "and birth country is", top_country, "\n")
+
+# Decade with highest ratio of US-born Nobel Prize winners to total winners for ALL categories
+
+nobel_df['US_born_winners'] = nobel_df['birth_country'] == 'United States of America'
+nobel_df['decade'] = (np.floor(nobel_df['year']/10) * 10).astype('int')
+max_decade_usa_df = nobel_df.groupby('decade', as_index=False)['US_born_winners'].mean()
+max_decade_usa_df = max_decade_usa_df.sort_values(by='US_born_winners', ascending=False)
+max_decade_usa = max_decade_usa_df['decade'].values[0]
+print(f'The decade that had the highest ratio of US-born Nobel Prize is, {max_decade_usa}\n')
+
+# Decade & Nobel Prize category combination with highest proportion of female laureates
+nobel_df['female_laureates'] = nobel_df['sex'] == 'Female'
+max_female = nobel_df.groupby(['decade', 'category'], as_index=False)['female_laureates'].mean()
+max_female = max_female.sort_values(by='female_laureates', ascending=False)
+max_female_dict = {max_female['decade'].values[0]:max_female['category'].values[0]}
+print(f'The decade & Nobel Prize category combo with highest proportion of female laureates is, {max_female_dict}\n')
+
+# Name of first woman & the category to receive a Nobel Prize in 
+female_df = nobel_df[nobel_df['sex'] == 'Female']
+first_woman_df = female_df.groupby(['category', 'full_name'], as_index=False)['year'].min()
+first_woman_df = first_woman_df.sort_values(by='year', ascending=True)
+first_woman_name = first_woman_df.values[0][1]
+first_woman_category = first_woman_df.values[0][0]
+print(f'The first woman to win a Nobel Prize is, {first_woman_name} in {first_woman_category}\n')
+
+# Individuals who have won more than one Nobel Prize throughout the years
+repeat_individuals_df = nobel_df['full_name'].value_counts() 
+repeat_individuals_df = repeat_individuals_df[repeat_individuals_df > 1]
+repeat_list = repeat_individuals_df.index.tolist()
+print(f'This is the list of repeat list of individuals/orgs that have won more than one Nobel Prize through out the years: {repeat_list}')
+
+
 
