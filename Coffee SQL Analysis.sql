@@ -1,3 +1,27 @@
+/*
+Coffee Sales Analysis Project
+
+This project explores multiple datasets related to coffee consumption, sales, and 
+customer behavior. Using SQL, I investigate questions around product categories, 
+customer demographics, loyalty programs, data quality, and business performance.
+
+The analysis covers:
+- Product categories: total unique categories and their distribution of sales records.
+- Customer segments: breakdown by gender, loyalty membership, and repeat purchase behavior.
+- Sales trends: comparisons across product categories and discovery sources.
+- Lifestyle impact: focus and sleep quality by gender and time of day for coffee drinkers.
+- Data quality: identification of duplicate or inconsistent records in shop listings.
+- Spending habits: total spend before and after noon.
+- Sensory analysis: average liking, flavor intensity, acidity, and mouthfeel by pH levels.
+- Store leaderboard: monthly top 3 coffee shops by revenue, transactions, and quality score.
+
+By combining aggregation, grouping, filtering, and window functions, these queries 
+demonstrate practical SQL techniques for extracting business insights. 
+The results provide a structured view of customer behavior, product performance, 
+and operational issues within the coffee sales ecosystem.
+*/
+
+
 -- Q1. Table considered: <baristacoffeesalesTBL>  
 -- How many product categories are there?
 -- For each product category, show the number of records.
