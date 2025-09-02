@@ -1,0 +1,114 @@
+"""
+Project: Food Origins Analysis (UK Market)
+Description:
+This project analyzes product data (avocado, sourdough, olive oil) 
+from OpenFoodFacts to determine the top origins of products consumed 
+in the United Kingdom. The workflow involves:
+- Subsetting relevant columns from product datasets
+- Filtering by category tags (loaded from text files)
+- Identifying top product origins by country
+"""
+
+import pandas as pd
+
+
+# ===============================================================
+# Step 1. Avocado Analysis
+# ===============================================================
+
+# Load avocado dataset
+avocado_df = pd.read_csv('data/avocado.csv', sep='\t')
+
+# Subset avocado dataframe with relevant columns
+relevant_columns = [
+    'code', 'lc', 'product_name_en', 'quantity', 'serving_size', 
+    'packaging_tags', 'brands', 'brands_tags', 'categories_tags', 
+    'labels_tags', 'countries', 'countries_tags', 'origins','origins_tags'
+]
+avocado_subset = avocado_df[relevant_columns]
+
+# Load relevant avocado category tags from external file
+filepath = 'data/relevant_avocado_categories.txt'
+with open(filepath, "r") as file:
+    relevant_avocado_categories = file.read().splitlines()
+
+# Clean avocado dataset:
+# - Split category tags into lists
+# - Drop rows without categories
+avocado_subset['categories_tags'] = avocado_subset['categories_tags'].str.split(',')
+avocado_subset = avocado_subset.dropna(subset=['categories_tags'])
+
+# Filter avocado data to include only relevant categories
+avocado_subset = avocado_subset[
+    avocado_subset['categories_tags'].apply(
+        lambda x: any([i for i in x if i in relevant_avocado_categories])
+    )
+]
+
+# Identify the top origin of avocados consumed in the UK
+top_avocado_origin = avocado_subset[avocado_subset['countries'] == 'United Kingdom']
+top_avocado_origin = top_avocado_origin['origins_tags'].value_counts().index[0]
+top_avocado_origin = top_avocado_origin.lstrip("en:")   # clean prefix
+print("Top avocado origin (UK):", top_avocado_origin)
+
+
+# ===============================================================
+# Step 2. Define Utility Function for Other Ingredients
+# ===============================================================
+
+def read_and_filter_data(filename, relevant_categories):
+    """
+    Reads product CSV, filters by relevant categories, 
+    and finds the top origin for products in the UK.
+    """
+    ingredient_df = pd.read_csv(f'data/{filename}', sep='\t')
+
+    # Subset relevant columns
+    relevant_columns = [
+        'code', 'lc', 'product_name_en', 'quantity', 'serving_size', 
+        'packaging_tags', 'brands', 'brands_tags', 'categories_tags', 
+        'labels_tags', 'countries', 'countries_tags', 'origins','origins_tags'
+    ]
+    ingredient_subset = ingredient_df[relevant_columns]
+
+    # Clean dataset
+    ingredient_subset['categories_tags'] = ingredient_subset['categories_tags'].str.split(',')
+    ingredient_subset = ingredient_subset.dropna(subset=['categories_tags'])
+
+    # Filter by relevant categories
+    ingredient_subset = ingredient_subset[
+        ingredient_subset['categories_tags'].apply(
+            lambda x: any([i for i in x if i in relevant_categories])
+        )
+    ]
+
+    # Find top origin for UK products
+    top_origin = ingredient_subset[ingredient_subset['countries'] == 'United Kingdom']
+    top_origin = top_origin['origins_tags'].value_counts().index[0]
+    top_origin = top_origin.lstrip("en:")       # remove "en:" prefix
+    top_origin = top_origin.replace('-', ' ')   # replace dashes with spaces
+
+    return top_origin
+
+
+# ===============================================================
+# Step 3. Sourdough & Olive Oil Analysis
+# ===============================================================
+
+# Load relevant sourdough category tags
+sourdough_filepath = 'data/relevant_sourdough_categories.txt'
+with open(sourdough_filepath, "r") as file:
+    relevant_sourdough_categories = file.read().splitlines()
+
+# Load relevant olive oil category tags
+olive_oil_filepath = 'data/relevant_olive_oil_categories.txt'
+with open(olive_oil_filepath, "r") as file:
+    relevant_olive_oil_categories = file.read().splitlines()
+
+# Apply function to find top origins
+top_sourdough_origin = read_and_filter_data('sourdough.csv', relevant_sourdough_categories)
+top_olive_oil_origin = read_and_filter_data('olive_oil.csv', relevant_olive_oil_categories)
+
+# Print results
+print("Top sourdough origin (UK):", top_sourdough_origin)
+print("Top olive oil origin (UK):", top_olive_oil_origin)
