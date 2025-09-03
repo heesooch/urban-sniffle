@@ -73,4 +73,4 @@ I plan to expand this portfolio with projects in:
 
 ---
 
-Feel free to browse the full walkthroughs and code inside each project folder. Happy exploring!
+Feel free to browse the full walkthroughs and code inside each project folder. 
