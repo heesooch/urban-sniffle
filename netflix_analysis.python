@@ -1,0 +1,61 @@
+"""
+Project: Netflix Movies of the 1990s — Exploratory Data Analysis
+Dataset: netflix_data.csv
+
+Description:
+This project analyzes Netflix movie data from the 1990s (1990–1999).
+The goal is to uncover trends in movie duration and explore specific
+subsets such as short action films.
+
+Key steps:
+1. Load Netflix dataset into a pandas DataFrame.
+2. Subset data to movies released between 1990–1999.
+3. Find the most frequent duration among 1990s movies.
+4. Count the number of short (<90 min) action movies from this decade.
+
+Outputs:
+- Most common duration for 1990s movies.
+- Count of short action movies in the 1990s.
+"""
+
+# ===============================================================
+# Step 1. Import Libraries
+# ===============================================================
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+# ===============================================================
+# Step 2. Load Dataset
+# ===============================================================
+# Read in the Netflix CSV as a DataFrame
+netflix_df = pd.read_csv("netflix_data.csv")
+
+
+# ===============================================================
+# Step 3. Filter Movies Released in the 1990s
+# ===============================================================
+movies_released_1990s = netflix_df.loc[
+    (netflix_df["release_year"] >= 1990) & (netflix_df["release_year"] < 2000)
+]
+
+
+# ===============================================================
+# Step 4. Find Most Frequent Movie Duration (1990s)
+# ===============================================================
+# mode() finds the most common values in a column
+most_freq_duration = movies_released_1990s["duration"].mode().iloc[0]
+print("Most frequent movie duration in the 1990s:", most_freq_duration, "minutes")
+
+
+# ===============================================================
+# Step 5. Count Short Action Movies (<90 min)
+# ===============================================================
+short_movies = movies_released_1990s[
+    (movies_released_1990s["duration"] < 90)
+    & (movies_released_1990s["type"] == "Movie")
+    & (movies_released_1990s["genre"] == "Action")
+]
+
+short_movie_count = short_movies.shape[0]
+print("Number of short action movies in the 1990s:", short_movie_count)
