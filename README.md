@@ -1,53 +1,37 @@
-# Data & Analytics Portfolio
+# 📊 Data & Analytics Portfolio
 
 Welcome to my portfolio repository!  
 This repo contains a collection of projects showcasing my SQL, Python, and data analysis skills.  
-Each project demonstrates a different aspect of data exploration — from cleaning and querying to visualization and business insights.  
+Each project demonstrates a different facet of data exploration—from cleaning and querying to visualization and supply chain insights.
 
 ---
 
 ##  Projects
 
-### 1. [Coffee Sales Analysis](./coffee_sql_analysis)
+### 1. [☕ Coffee Sales Analysis](https://github.com/heesooch/urban-sniffle/blob/main/Coffee%20SQL%20Analysis.sql)
 **Tech:** SQL  
 **Description:**  
-Analyzed multiple coffee-related datasets to uncover insights into customer behavior, product categories, and shop performance.  
-- Counted product categories and sales distribution  
-- Segmented customers by gender, loyalty, and repeat status  
-- Compared sales by category and discovery source  
-- Evaluated focus level & sleep quality of coffee drinkers  
-- Identified duplicate/inconsistent records in shop listings  
-- Compared spending habits before/after noon  
-- Analyzed sensory preferences by pH levels  
-- Built a monthly *Top 3 Coffee Shop Leaderboard* (Mar–Jul)  
+Analyzed coffee-related datasets to uncover insights into customer behavior, product categories, and store performance.  
+- Identified the number of product categories and their record counts  
+- Segmented customers by gender, loyalty membership, and repeat purchase status  
+- Summed total sales by product category and discovery source  
+- Examined focus level and sleep quality among coffee drinkers, broken down by time of day and gender  
+- Detected duplicates in shop listings for data quality  
+- Compared spending before and after noon  
+- Explored sensory preferences (e.g., liking, flavor intensity) across pH ranges  
+- Built a monthly *Top 3 Coffee Shop Leaderboard* based on sales (Mar–Jul)
 
 ---
 
-### 2. [Nobel Prize Winners Analysis](./nobel_prize_analysis)
+### 2. [🏆 Nobel Prize Winners Analysis](https://github.com/heesooch/urban-sniffle/blob/main/History%20of%20Nobel%20Prize%20Winners.python)
 **Tech:** Python (pandas, seaborn, matplotlib)  
 **Description:**  
-Explored over 100 years of Nobel Prize history (1901–2023) using the Nobel Foundation dataset.  
-- Visualized gender and country distributions of winners  
-- Tracked trends in awards over time and across disciplines  
-- Highlighted repeat winners and shifts in prize allocation  
-- Created clear visualizations to summarize insights  
+Delved into over 120 years of Nobel Prize data (1901–2023), visualizing trends in country and gender distribution of laureates.  
+- Showcased evolving award patterns across disciplines  
+- Highlighted shifts in award distribution over time  
+- Identified repeat winners  
+- Presented visual summaries for intuitive understanding
 
 ---
 
-### 3. [Oldest Businesses by Continent](./oldest_businesses)
-**Tech:** SQL  
-**Description:**  
-Investigated historic businesses worldwide to find which categories and continents sustain the oldest companies.  
-- Identified the oldest businesses per continent  
-- Checked which countries lack business records  
-- Compared business categories most resilient across centuries  
-
----
-
-### 4. [What’s in an Avocado Toast — Supply Chain Analysis](./avocado_toast_supply_chain)
-**Tech:** Python (pandas)  
-**Description:**  
-A supply chain analysis of three ingredients — avocado, sourdough, and olive oil — using the Open Food Facts database.  
-- Filtered product datasets by relevant food categories  
-- Cleaned and standardized origin data  
-- Identified top origin
+### 3. [🏢 Oldest Businesses by Continent](https://github.com/heesooch/urban-sniff
