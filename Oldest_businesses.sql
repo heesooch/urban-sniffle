@@ -1,4 +1,3 @@
-
 /* ============================================================
    Project: Oldest Businesses Analysis
    Description: SQL queries exploring the history of businesses 
@@ -34,4 +33,37 @@ ORDER BY year_founded ASC;
    Q2. How many countries per continent lack data on the oldest 
        businesses? 
    - Check if any countries have no businesses recorded.
-   - Extend analysis by includ
+   - Extend analysis by including `new_businesses` data with UNION.
+   - Count how many such countries exist per continent.
+------------------------------------------------------------- */
+SELECT continent, COUNT(countries.country) AS countries_without_businesses
+FROM countries
+LEFT JOIN (
+    SELECT * FROM businesses
+    UNION ALL
+    SELECT * FROM new_businesses
+) AS all_businesses
+ON countries.country_code = all_businesses.country_code
+WHERE all_businesses.business IS NULL
+GROUP BY continent;
+
+
+/* ------------------------------------------------------------
+   Q3. Which business categories are best suited to last over 
+       the course of centuries? 
+   - Join businesses with categories and countries.
+   - For each continent–category pair, find the earliest 
+     year_founded.
+   - Helps identify industries with the longest-lasting businesses.
+------------------------------------------------------------- */
+SELECT 
+    countries.continent, 
+    categories.category, 
+    MIN(businesses.year_founded) AS year_founded
+FROM businesses
+INNER JOIN categories
+    ON businesses.category_code = categories.category_code
+INNER JOIN countries
+    ON businesses.country_code = countries.country_code
+GROUP BY countries.continent, categories.category
+ORDER BY countries.continent, categories.category ASC;
